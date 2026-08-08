@@ -59,11 +59,11 @@ Race was the only single feature evaluated in this project. Metrics were broken 
 
 | Metric | My Baseline Model | My Mitigated Model | COMPAS's Score |
 |---|---|---|---|
-| Accuracy | 64.4% | 62.2% | 65.5% |
-| False positive rate (African American) | 36.3% | 36.8% | 42.1% |
-| False positive rate (Caucasian) | 20.2% | 24.3% | 20.6% |
-| Demographic parity difference | 0.189 | 0.150 | 0.259 |
-| Equalized odds difference | 0.161 | 0.125 | 0.225 |
+| Accuracy | 64.4% | 61.9% | 65.5% |
+| False positive rate (African American) | 36.3% | 37.9% | 42.1% |
+| False positive rate (Caucasian) | 20.2% | 23.7% | 20.6% |
+| Demographic parity difference | 0.189 | 0.163 | 0.259 |
+| Equalized odds difference | 0.161 | 0.142 | 0.225 |
 
 The false positive rate gap was large and consistent across all three models. This means African American defendants who did not reoffend were misclassified as high risk much more often than Caucasian defendants who also did not reoffend. This pattern held even for the group with the largest sample size (n=800), which makes the finding more credible than a result based on a small group.
 
@@ -79,6 +79,7 @@ This concern is supported by a permutation importance analysis of the model. `pr
 Beyond the modeling choices, using a system like this to influence real decisions removes human judgment and accountability from decisions that seriously affect someone's freedom, without any guarantee the underlying data itself is a fair or accurate reflection of that person's actual behavior.
 
 ## Caveats and Recommendations
+- **Note on run-to-run variation:** The `ExponentiatedGradient` algorithm has some internal randomness that isn't fully controlled by `random_state`. When I ran this notebook multiple times, the mitigation DPD values landed roughly between 0.148 and 0.163, and EOD values between 0.122 and 0.142. The Mitigation Results you see in this project reflect my specific run's output. If you were to rerun this notebook yourself, they would be different compared to mine.
 - Some race categories in the dataset (Asian, Native American) had very small sample sizes and were excluded from fairness comparisons. Results might look different with more data for these groups. 
 - This project only evaluated race on its own. Sex and age were used as model features, but not evaluated as fairness factors, and intersectional combinations (like race and sex together) were not tested.
 - Permutation importance was run to check whether `priors_count` was doing a large share of the model's predictive work. See Ethical Considerations for the result.

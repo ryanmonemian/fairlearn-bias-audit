@@ -49,7 +49,7 @@ fairlearn-bias-audit/
 
 ## Model Card
 
-See [MODEL_CARD.md](./MODEL_CARD.md) for intended use, limitations, ethical 
+See [model_card.md](./model_card.md) for intended use, limitations, ethical 
 considerations, and full quantitative results.
 
 ## Setup
